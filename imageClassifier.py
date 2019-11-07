@@ -1,6 +1,8 @@
 import torch 
 import torchvision
 import PIL
+import os
+import sys
 from PIL import Image
 from torchvision import models
 from torchvision import transforms
@@ -20,7 +22,7 @@ imageTransformation = transforms.Compose([
  std=[0.229, 0.224, 0.225]                 
  )])
 
-img = Image.open("download.jpg") #insert image name here
+img = Image.open(sys.argv[1]) #insert image name here
 imageTensor = imageTransformation(img)
 batch = torch.unsqueeze(imageTensor,0) # the function unsqueeze adds a dimension to a given tensor, over here
                                        # sicne we added "0" in the place if the axis, we create a tensor of tensors
@@ -1050,24 +1052,25 @@ output = alex(batch) # the data is fed to the mdoel and the output tensor is obt
 print(classLabels[index.tolist()[0]]) 
 
 #### The evaluation of images in the dataset on the model gives us 
+script_dir = os.path.dirname(__file__)
 
-image_list = ["download1.jpg",
-              "download 2.jpg",
-              "download3.jpg",
-              "download4.jpg",
-              "download5.jpg",
-              "download6.jpg",
-              "download7.jpg",
-              "download8.jpg",
-              "download9.jpg",
-              "download10.jpg"] #list of images in the dataset
+image_list = ["datasetImages/download1.jpg",
+              "datasetImages/download 2.jpg",
+              "datasetImages/download3.jpg",
+              "datasetImages/download4.jpg",
+              "datasetImages/download5.jpg",
+              "datasetImages/download6.jpg",
+              "datasetImages/download7.jpg",
+              "datasetImages/download8.jpg",
+              "datasetImages/download9.jpg",
+              "datasetImages/download10.jpg"] #list of images in the dataset
 
 
 netValueMatrix = {} # used to store the difference values
 imageTransformedVector = [] # stores all the classified image tensors(output of all the images)
 inds = 0
 for image in image_list:
-    img = Image.open(image) # open the image in the created small data set
+    img = Image.open(os.path.join(script_dir,image)) # open the image in the created small data set
     imageTensor = imageTransformation(img) # create the image tensor(vector) and apply the transformations as defined earlier
     batch = torch.unsqueeze(imageTensor,0) # creating a batch of single image as described earlier
     out_tensor = alex(batch) # creating the output Vector
@@ -1101,6 +1104,6 @@ for f in tt:
         n+=1
 
 
-
+print(sys.argv)
 #print(tt)
 

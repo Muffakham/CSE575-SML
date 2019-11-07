@@ -19,9 +19,12 @@ Here we are using pytorch to make use of the available pretrained models like RE
 
 ## Getting Started
 
-The basic concept here is to take an image and transform it using the transforations available in the tensorflow, Each image is converted into a tensor (vector), a tensor in pytorch is same as that of an array, there can be n dimensional array. Our image is tramsformed into 256X256 tensor(array).This tensor is then passed to the model to evaluate and the out putput obtained is 1000 element long tensor, ecavh value representing the affinity of the current image towards 1000 available image classes. 
+* The basic concept here is to take an image and transform it using the transforations available in the tensorflow, Each image is converted into a tensor (vector), a tensor in pytorch is same as that of an array, there can be n dimensional array. Our image is tramsformed into 256X256 tensor(array).This tensor is then passed to the model to evaluate and the out putput obtained is 1000 element long tensor, ecavh value representing the affinity of the current image towards 1000 available image classes. 
 
-before getting started, we need to install pytorch and numpy 
+* before getting started, we need to install pytorch and numpy
+* Also make sure, the image that the user needs to enter is downloaded and stored in the same folder as the program. Then while running, we need to pass the image name as the runtime arguement
+
+
 ### Prerequisites
 ```
 we also need to be running python 3 
@@ -31,4 +34,9 @@ pip3 install numpy
 ```
 ```
 pip3 install torch==1.3.0+cpu torchvision==0.4.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
+```
+## Running the program
+
+```
+python imageClassifier.py <<"name of the image">>
 ```
