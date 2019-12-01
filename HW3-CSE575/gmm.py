@@ -1,17 +1,9 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Nov 25 01:36:33 2019
-
-@author: syed
-"""
 
 import pandas as pd
 import numpy as np
 from scipy.stats import multivariate_normal
 import matplotlib.pyplot as plt
-'''
-from scipy.stats import mode
-from sklearn.metrics import confusion_matrix'''
+
 
 class GMM:
     def __init__(self, k, max_iter=5):
@@ -89,44 +81,5 @@ class_1 = np.array(class_1)
 class_2 = np.array(class_2)
 plt.scatter(class_1[:,1],class_1[:,2])
 plt.scatter(class_2[:,1],class_2[:,2])
-        
-    
-'''
-def jitter(x):
-    return x + np.random.uniform(low=-0.05, high=0.05, size=x.shape)
 
-def plot_axis_pairs(X, axis_pairs, clusters, classes):
-    n_rows = len(axis_pairs) // 2
-    n_cols = 2
-    plt.figure(figsize=(16, 10))
-    for index, (x_axis, y_axis) in enumerate(axis_pairs):
-        plt.subplot(n_rows, n_cols, index+1)
-        plt.title('GMM Clusters')
-        plt.xlabel(data_new.feature_names[x_axis])
-        plt.ylabel(data_new.feature_names[y_axis])
-        plt.scatter(
-            jitter(X[:, x_axis]), 
-            jitter(X[:, y_axis]), 
-            #c=clusters, 
-            cmap=plt.cm.get_cmap('brg'),
-            marker='x')
-    plt.tight_layout()
-    
-permutation = np.array([
-    mode(data_new.target[gmm.predict(data_new) == i]).mode.item() 
-    for i in range(gmm.k)])
-permuted_prediction = permutation[gmm.predict(data_new)]
-print(np.mean(data_new.target == permuted_prediction))
-confusion_matrix(data_new.target, permuted_prediction)
-
-plot_axis_pairs(
-    X=data_new,
-    axis_pairs=[ 
-        (0,1), (2,3), 
-        (0,2), (1,3) ],
-    clusters=permuted_prediction,
-    classes=data_new.target)'''
-
-
-
-    
+plt.show()
