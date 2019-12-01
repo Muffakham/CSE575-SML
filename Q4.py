@@ -47,8 +47,11 @@ class Kmeans:
             for k in range(self.K):
                 Y[k+1]=Y[k+1].T
             for k in range(self.K):
-            	print("y is ",Y[k+1])
-            	self.Centroids[:,k]=self.calCenter(Y[k+1],k+1) 
+            	
+            	ff = self.Centroids
+            	self.Centroids[:,k]=self.calCenter(Y[k+1],k+1)
+            	if(np.array_equal(ff,self.Centroids)):
+            		break 
                 
                 
             self.Output=Y
@@ -71,7 +74,7 @@ class Kmeans:
 data = pd.read_csv("CSE575-HW03-Data.csv")
 data = np.array(data)
 km = Kmeans(data,2)
-ft = km.fit(50)
+ft = km.fit(500)
 op = km.predict()
 
 class_1 = op[1]
@@ -80,5 +83,8 @@ class_2 = op[2]
 class_2 = class_2[:,0:2]
 plt.scatter(class_1[:,0],class_1[:,1])
 plt.scatter(class_2[:,0],class_2[:,1])
+
+print("Center of Cluster 1 is ",km.Centroids[:,0])
+print("Center of Cluster 2 is ",km.Centroids[:,1])
 
 plt.show()
