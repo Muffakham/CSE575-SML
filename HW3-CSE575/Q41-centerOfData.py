@@ -4,34 +4,28 @@ import numpy as np
 import random as rd
 import pandas as pd
 import matplotlib.pyplot as plt
-class Kmeans:
+
+class altKmeans:
     def __init__(self,X,K):
         self.X=X
-        self.shp = X.shape
+        self.inpSize = X.shape
         self.Output={}
-        self.Centroids=np.array([[82.00, 3.9313,-4.6257,-5.2176,-7.00,-2.00,-2.2,-2.23,-4.3913,1.6305,2.6735,2.7018,0.3256]])
-        self.Centroids = self.Centroids.T
+        self.center=np.array([[83.40, 3.5313,-4.1257,-4.2176,-7.00,-2.50,-2.2587,-2.2301,-5.3913,3.6305,5.6735,3.7018,0.3256]])
+        self.center = self.center.T
         self.K=K
         self.m=self.X.shape[0]
-        self.l,self.n=self.shp
+        self.l,self.n=self.inpSize
 
 
    
     def fit(self,n_iter):
-        #randomly Initialize the centroids
-        #self.Centroids=self.kmeanspp(self.X,self.K)
         
-        """for i in range(self.K):
-            rand=rd.randint(0,self.m-1)
-            self.Centroids=np.c_[self.Centroids,self.X[rand]]"""
-        
-        #compute euclidian distances and assign clusters
         for n in range(n_iter):
-            EuclidianDistance=np.array([]).reshape(self.m,0)
+            ed=np.array([]).reshape(self.m,0)
             for k in range(self.K):
-                tempDist=np.sum((np.abs(self.X-self.Centroids[:,k])),axis=1)
-                EuclidianDistance=np.c_[EuclidianDistance,tempDist]
-            C=np.argmin(EuclidianDistance,axis=1)+1
+                t=np.sum((np.abs(self.X-self.center[:,k])),axis=1)
+                ed=np.c_[ed,t]
+            C=np.argmin(ed,axis=1)+1
             #adjust the centroids
             Y={}
             for k in range(self.K):
@@ -43,9 +37,9 @@ class Kmeans:
                 Y[k+1]=Y[k+1].T
             for k in range(self.K):
             	
-            	ff = self.Centroids
-            	self.Centroids[:,k]=self.calCenter(Y[k+1],k+1)
-            	if(np.array_equal(ff,self.Centroids)):
+            	ff = self.center
+            	self.center[:,k]=self.calCenter(Y[k+1],k+1)
+            	if(np.array_equal(ff,self.center)):
             		break 
                 
                 
@@ -68,18 +62,16 @@ class Kmeans:
     
 data = pd.read_csv("CSE575-HW03-Data.csv")
 data = np.array(data)
-km = Kmeans(data,1)
+km = altKmeans(data,1)
 ft = km.fit(500)
 op = km.predict()
 
 class_1 = op[1]
 class_1 = class_1[:,0:2]
-'''class_2 = op[2]
-class_2 = class_2[:,0:2]'''
 plt.scatter(class_1[:,0],class_1[:,1])
-#plt.scatter(class_2[:,0],class_2[:,1])
 
-print("Center of Cluster 1 is ",km.Centroids[:,0])
-#print("Center of Cluster 2 is ",km.Centroids[:,1])
+
+print("Center of Cluster 1 is ",km.center[:,0])
+
 
 plt.show()

@@ -9,7 +9,7 @@ from torchvision import transforms
 
 # using alex net in this case
 
-alex = models.alexnet(pretrained = True)
+alex = models.resnet50(pretrained = True)
 #print(alex)
 
 #using transfirmations to obtain the tensor of an image
